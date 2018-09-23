@@ -1,13 +1,15 @@
 package pg.grigaliunas.paulius.skatink;
 
+import android.content.ContentValues;
 import android.content.Context;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 
 public class DatabaseHelper extends SQLiteOpenHelper{
 
-        public static final String DARABASE_NAME = "Skatink.db";
+        public static final String DATABASE_NAME = "Skatink.db";
         public static final String Table_Parent = "parent";
+        public static final String Table_Child = "child";
         public static final String Col_ID = "ID";
         public static final String Col_username = "username";
         public static final String Col_password = "password";
@@ -18,12 +20,21 @@ public class DatabaseHelper extends SQLiteOpenHelper{
 
 
         public DatabaseHelper(Context context) {
-                super(context,DARABASE_NAME, null, 1);
+                super(context,DATABASE_NAME, null, 1);
+                //SQLiteDatabase db = this.getWritableDatabase();
         }
 
         @Override
         public void onCreate(SQLiteDatabase db) {
-                db.execSQL("Create Table " + Table_Parent + " (ID INTEGER PRIMARY KEY , username, password, name, surname, email, phone )"
+                db.execSQL("Create Table " + Table_Parent + " (" +
+                        "ID INTEGER PRIMARY KEY ," +
+                        " username, " +
+                        "password, " +
+                        "name, " +
+                        "surname, " +
+                        "email, " +
+                        "phone )");
+
         }
 
         @Override
@@ -31,5 +42,18 @@ public class DatabaseHelper extends SQLiteOpenHelper{
                 db.execSQL("Drop Table if Exists " + Table_Parent );
                 onCreate(db);
         }
+        public boolean insertData (String userName, String password, String name, String surname, String email, String phone){
+                SQLiteDatabase db = this.getWritableDatabase();
+
+                ContentValues contentValues = new ContentValues();
+                contentValues.put(Col_username, userName);
+                contentValues.put(Col_password, password);
+                contentValues.put(Col_name, name);
+                contentValues.put(Col_surname, surname );
+                contentValues.put(Col_email, email);
+                contentValues.put(Col_phone, phone );
+                long result = db.insert(Table_Parent, null, contentValues);
+                return (result == -1 )? false: true;
+        }
 }
-}
+
