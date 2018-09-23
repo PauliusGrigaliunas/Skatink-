@@ -1,38 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="VcsDirectoryMappings">
-    <mapping directory="$PROJECT_DIR$/Bandom-gita" vcs="Git" />
-    <mapping directory="$PROJECT_DIR$/Documentation" vcs="Git" />
-    <mapping directory="$PROJECT_DIR$/FTP-client_library" vcs="Git" />
-    <mapping directory="$PROJECT_DIR$/FootBall" vcs="Git" />
-    <mapping directory="$PROJECT_DIR$/FuzBall2" vcs="Git" />
-    <mapping directory="$PROJECT_DIR$/Github-test" vcs="Git" />
-    <mapping directory="$PROJECT_DIR$/Gmail-Jabber-Chatbot" vcs="Git" />
-    <mapping directory="$PROJECT_DIR$/LibraryApp" vcs="Git" />
-    <mapping directory="$PROJECT_DIR$/MyLibrary" vcs="Git" />
-    <mapping directory="$PROJECT_DIR$/POP3" vcs="Git" />
-    <mapping directory="$PROJECT_DIR$/RoutingProtocol" vcs="Git" />
-    <mapping directory="$PROJECT_DIR$/SaveReadWriteDeleteSQLite" vcs="Git" />
-    <mapping directory="$PROJECT_DIR$/Smack" vcs="Git" />
-    <mapping directory="$PROJECT_DIR$/VaikuDarzelis" vcs="Git" />
-    <mapping directory="$PROJECT_DIR$/WebFootball" vcs="Git" />
-    <mapping directory="$PROJECT_DIR$/Wicky" vcs="Git" />
-    <mapping directory="$PROJECT_DIR$/XMPP-Client" vcs="Git" />
-    <mapping directory="$PROJECT_DIR$/XMPP-WinRT-WPSL" vcs="Git" />
-    <mapping directory="$PROJECT_DIR$/XmppClient" vcs="Git" />
-    <mapping directory="$PROJECT_DIR$/cafe-demo" vcs="Git" />
-    <mapping directory="$PROJECT_DIR$/darzeliai" vcs="Git" />
-    <mapping directory="$PROJECT_DIR$/ejabberd" vcs="Git" />
-    <mapping directory="$PROJECT_DIR$/fcmxmppserver" vcs="Git" />
-    <mapping directory="$PROJECT_DIR$/jQuery-webcam" vcs="Git" />
-    <mapping directory="$PROJECT_DIR$/messenger-platform-samples" vcs="Git" />
-    <mapping directory="$PROJECT_DIR$/newlibrary" vcs="Git" />
-    <mapping directory="$PROJECT_DIR$/nodes" vcs="Git" />
-    <mapping directory="$PROJECT_DIR$/profanity" vcs="Git" />
-    <mapping directory="$PROJECT_DIR$/psi" vcs="Git" />
-    <mapping directory="$PROJECT_DIR$/psi/iris" vcs="Git" />
-    <mapping directory="$PROJECT_DIR$/recognition" vcs="Git" />
-    <mapping directory="$PROJECT_DIR$/simple-java-xmpp-client" vcs="Git" />
-    <mapping directory="$PROJECT_DIR$/sourcery-nightwatch" vcs="Git" />
+    <mapping directory="$PROJECT_DIR$" vcs="Git" />
   </component>
 </project>
