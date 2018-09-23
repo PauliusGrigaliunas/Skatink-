@@ -5,12 +5,19 @@ import android.content.Context;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 
+import java.sql.Date;
+import java.sql.Time;
+import java.sql.Timestamp;
+import java.util.Calendar;
+
 public class DatabaseHelper extends SQLiteOpenHelper{
 
         public static final String DATABASE_NAME = "Skatink.db";
         public static final String Table_Parent = "parent";
         public static final String Table_Child = "child";
+        public static final String Table_Tasks = "tasks";
         public static final String Col_ID = "ID";
+        public static final String Col_Nr = "Nr";
         public static final String Col_username = "username";
         public static final String Col_password = "password";
         public static final String Col_name = "name";
@@ -18,34 +25,53 @@ public class DatabaseHelper extends SQLiteOpenHelper{
         public static final String Col_email = "email";
         public static final String Col_phone = "phone";
         public static final String Col_parent_ID = "parent_ID";
+        public static final String Col_child_ID = "child_ID";
         public static final String Col_points = "points";
+        public static final String Col_date = "date ";
+        public static final String Col_confirmed = "confirmed";
+
+        private final String CreateParentTable =
+                "Create Table " + Table_Parent + " (" +
+                        Col_ID + "INTEGER PRIMARY KEY, " +
+                        Col_username + " text UNIQUE, " +
+                        Col_password + " text, " +
+                        Col_name + " text, " +
+                        Col_surname + " text , " +
+                        Col_email + " text UNIQUE, " +
+                        Col_phone + " text )";
+
+        private final String CreateChildTable =
+            "Create Table " + Table_Child + " (" +
+                    Col_ID + "INTEGER PRIMARY KEY, "+
+                    Col_parent_ID + " INTEGER, " +
+                    Col_username + " text UNIQUE, " +
+                    Col_password + " text, " +
+                    Col_name + " text, " +
+                    Col_points + " INTEGER, " +
+            "FOREIGN KEY("+Col_parent_ID+") REFERENCES " + Table_Parent + "("+Col_ID+"))";
+
+
+        private final String CreateTaskTable =
+            "Create Table " + Table_Tasks+ " (" +
+                    Col_Nr + "INTEGER PRIMARY KEY, "+
+                    Col_child_ID + " INTEGER, " +
+                    Col_name + " text, " +
+                    Col_points + " INTEGER, " +
+                    Col_date + " text, " +
+                    Col_confirmed + " BOOLEAN, " +
+                    "FOREIGN KEY("+Col_child_ID+") REFERENCES " + Table_Child  + "("+Col_ID+"))";
 
 
         public DatabaseHelper(Context context) {
                 super(context,DATABASE_NAME, null, 1);
-            SQLiteDatabase db = this.getWritableDatabase();
+                SQLiteDatabase db = this.getWritableDatabase();
         }
 
         @Override
         public void onCreate(SQLiteDatabase db) {
-                db.execSQL("Create Table " + Table_Parent + " (" +
-                        "ID INTEGER PRIMARY KEY ," +
-                        "username, " +
-                        "password, " +
-                        "name, " +
-                        "surname, " +
-                        "email, " +
-                        "phone )");
-
-                db.execSQL("Create Table " + Table_Child + " (" +
-
-                        "ID INTEGER PRIMARY KEY ," +
-                        "parent_ID, " +
-                        "username, " +
-                        "password, " +
-                        "name, " +
-                        "points, " +
-                        "FOREIGN KEY(parent_ID) REFERENCES Table_Parent(ID) )");
+                db.execSQL(CreateParentTable);
+                db.execSQL(CreateChildTable);
+                db.execSQL(CreateTaskTable);
 
         }
 
@@ -53,9 +79,10 @@ public class DatabaseHelper extends SQLiteOpenHelper{
         public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) {
                 db.execSQL("Drop Table if Exists " + Table_Parent );
                 db.execSQL("Drop Table if Exists " + Table_Child );
+                db.execSQL("Drop Table if Exists " + Table_Tasks );
                 onCreate(db);
         }
-        public boolean insertData (String userName, String password, String name, String surname, String email, String phone){
+        public boolean insertParentData(String userName, String password, String name, String surname, String email, String phone){
                 SQLiteDatabase db = this.getWritableDatabase();
 
                 ContentValues contentValues = new ContentValues();
@@ -68,5 +95,33 @@ public class DatabaseHelper extends SQLiteOpenHelper{
                 long result = db.insert(Table_Parent, null, contentValues);
                 return (result == -1 )? false: true;
         }
+    public boolean insertChildData(int parentID, String userName, String password, String name){
+        SQLiteDatabase db = this.getWritableDatabase();
+
+        ContentValues contentValues = new ContentValues();
+        contentValues.put(Col_parent_ID, parentID);
+        contentValues.put(Col_username, userName);
+        contentValues.put(Col_password, password);
+        contentValues.put(Col_name, name);
+        contentValues.put(Col_points, 0);
+        long result = db.insert(Table_Child, null, contentValues);
+        return (result == -1 )? false: true;
+    }
+
+    public boolean insertTaskData(int NR, int childID, String name, int points, Timestamp today4, boolean confirmed ){
+        SQLiteDatabase db = this.getWritableDatabase();
+
+        Calendar cal = Calendar.getInstance();
+
+        ContentValues contentValues = new ContentValues();
+        contentValues.put(Col_Nr, NR);
+        contentValues.put(Col_child_ID, childID);
+        contentValues.put(Col_name, name);
+        contentValues.put(Col_points, points);
+        contentValues.put(Col_date, cal.getTime().toString());
+        contentValues.put(Col_confirmed, confirmed);
+        long result = db.insert(Table_Tasks, null, contentValues);
+        return (result == -1 )? false: true;
+    }
 }
 

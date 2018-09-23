@@ -1,5 +1,7 @@
 package pg.grigaliunas.paulius.skatink;
 
+import android.content.Intent;
+import android.net.MailTo;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
@@ -12,12 +14,14 @@ public class MainActivity extends AppCompatActivity {
 
     DatabaseHelper mydb;
     EditText username, password, name, surname, email, phone;
-    Button addbtn;
+    Button addbtn, newbtn;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+        //DatabaseManager.getInstance(new DatabaseHelper(getApplicationContext()));
+
         mydb = new DatabaseHelper(this);
 
         username = (EditText) findViewById(R.id.usernameText);
@@ -35,7 +39,7 @@ public class MainActivity extends AppCompatActivity {
                 new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
-                        boolean isInserted = mydb.insertData (
+                        boolean isInserted = mydb.insertParentData(
                                 username.getText().toString(),
                                 password.getText().toString(),
                                 name.getText().toString(),
@@ -54,4 +58,15 @@ public class MainActivity extends AppCompatActivity {
                 }
         );
     }
+    public void OpenWindow(){
+        newbtn = (Button)  findViewById(R.id.newbtn);
+        newbtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+                startActivity(new Intent(MainActivity.this, ChildActivity.class));
+            }
+        });
+    }
+
 }

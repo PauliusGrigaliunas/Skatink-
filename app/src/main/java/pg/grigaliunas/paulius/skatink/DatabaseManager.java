@@ -2,7 +2,6 @@ package pg.grigaliunas.paulius.skatink;
 
 import android.content.ContentValues;
 import android.database.Cursor;
-import android.database.SQLException;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteException;
 import android.database.sqlite.SQLiteOpenHelper;
@@ -23,7 +22,7 @@ public class DatabaseManager {
         }
     }
 
-    public static synchronized DatabaseManager getInstance(){
+    public static synchronized DatabaseManager getInstance(DatabaseHelper databaseHelper){
             if (instance == null ){
                 throw new IllegalStateException(DatabaseManager.class.getSimpleName() + "is not initialized!");
             }
