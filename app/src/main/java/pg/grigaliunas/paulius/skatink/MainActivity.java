@@ -32,6 +32,7 @@ public class MainActivity extends AppCompatActivity {
         phone = (EditText) findViewById(R.id.phoneText);
         addbtn = (Button) findViewById(R.id.addBtn);
         AddData();
+        OpenWindow();
     }
 
     public void AddData(){
