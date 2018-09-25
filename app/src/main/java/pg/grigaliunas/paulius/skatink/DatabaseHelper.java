@@ -16,6 +16,7 @@ public class DatabaseHelper extends SQLiteOpenHelper{
         public static final String Table_Parent = "parent";
         public static final String Table_Child = "child";
         public static final String Table_Tasks = "tasks";
+        public static final String Table_Assigment = "assigment";
         public static final String Col_ID = "ID";
         public static final String Col_Nr = "Nr";
         public static final String Col_username = "username";
@@ -26,6 +27,7 @@ public class DatabaseHelper extends SQLiteOpenHelper{
         public static final String Col_phone = "phone";
         public static final String Col_parent_ID = "parent_ID";
         public static final String Col_child_ID = "child_ID";
+        public static final String Col_task_NR = "task_NR";
         public static final String Col_points = "points";
         public static final String Col_date = "date ";
         public static final String Col_confirmed = "confirmed";
@@ -51,15 +53,21 @@ public class DatabaseHelper extends SQLiteOpenHelper{
             "FOREIGN KEY("+Col_parent_ID+") REFERENCES " + Table_Parent + "("+Col_ID+"))";
 
 
-        private final String CreateTaskTable =
+    private final String CreateTaskTable =
             "Create Table " + Table_Tasks+ " (" +
                     Col_Nr + " INTEGER PRIMARY KEY, "+
-                    Col_child_ID + " INTEGER, " +
                     Col_name + " text, " +
-                    Col_points + " INTEGER, " +
+                    Col_points + " INTEGER) ";
+
+    private final String CreateAssigmentTable =
+            "Create Table " + Table_Assigment+ " (" +
+                    Col_Nr + " INTEGER PRIMARY KEY, "+
+                    Col_child_ID + " INTEGER, " +
+                    Col_task_NR + " INTEGER, " +
                     Col_date + " text, " +
                     Col_confirmed + " BOOLEAN, " +
-                    "FOREIGN KEY("+Col_child_ID+") REFERENCES " + Table_Child  + "("+Col_ID+"))";
+                    "FOREIGN KEY("+Col_child_ID+") REFERENCES " + Table_Child  + "("+Col_ID+")" +
+                    "FOREIGN KEY("+Col_child_ID+") REFERENCES " + Table_Tasks  + "("+Col_Nr+"))";
 
 
         public DatabaseHelper(Context context) {
@@ -72,6 +80,7 @@ public class DatabaseHelper extends SQLiteOpenHelper{
                 db.execSQL(CreateParentTable);
                 db.execSQL(CreateChildTable);
                 db.execSQL(CreateTaskTable);
+                db.execSQL(CreateAssigmentTable);
 
         }
 
@@ -99,7 +108,7 @@ public class DatabaseHelper extends SQLiteOpenHelper{
         SQLiteDatabase db = this.getWritableDatabase();
 
         ContentValues contentValues = new ContentValues();
-        contentValues.put(Col_parent_ID, 1);
+        contentValues.put(Col_parent_ID, parentID);
         contentValues.put(Col_username, userName);
         contentValues.put(Col_password, password);
         contentValues.put(Col_name, name);
@@ -108,19 +117,26 @@ public class DatabaseHelper extends SQLiteOpenHelper{
         return (result == -1 )? false: true;
     }
 
-    public boolean insertTaskData(int NR, int childID, String name, int points, Timestamp today4, boolean confirmed ){
+    public boolean insertTaskData(String name, int points ){
+        SQLiteDatabase db = this.getWritableDatabase();
+
+        ContentValues contentValues = new ContentValues();
+        contentValues.put(Col_name, name);
+        contentValues.put(Col_points, points);
+        long result = db.insert(Table_Tasks, null, contentValues);
+        return (result == -1 )? false: true;
+    }
+
+    public boolean insertAssigmentData(int childID, int taskNR, boolean confirmed ){
         SQLiteDatabase db = this.getWritableDatabase();
 
         Calendar cal = Calendar.getInstance();
-
         ContentValues contentValues = new ContentValues();
-        contentValues.put(Col_Nr, NR);
         contentValues.put(Col_child_ID, childID);
-        contentValues.put(Col_name, name);
-        contentValues.put(Col_points, points);
+        contentValues.put(Col_task_NR, taskNR);
         contentValues.put(Col_date, cal.getTime().toString());
         contentValues.put(Col_confirmed, confirmed);
-        long result = db.insert(Table_Tasks, null, contentValues);
+        long result = db.insert(Table_Assigment, null, contentValues);
         return (result == -1 )? false: true;
     }
 }

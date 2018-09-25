@@ -18,7 +18,10 @@
         </activity>
         <activity
             android:name=".ChildActivity"
-            android:label="@string/title_activity_child"></activity>
+            android:label="@string/title_activity_child" />
+        <activity
+            android:name=".TaskActivity"
+            android:label="@string/title_activity_task"></activity>
     </application>
 
 </manifest>

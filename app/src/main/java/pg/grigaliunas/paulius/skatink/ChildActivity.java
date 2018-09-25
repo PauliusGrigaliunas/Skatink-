@@ -17,7 +17,7 @@ public class ChildActivity extends AppCompatActivity {
 
     DatabaseHelper mydb;
     EditText username, password, name, parentID;
-    Button addbtn;
+    Button addbtn2;
 
     private BottomNavigationView.OnNavigationItemSelectedListener mOnNavigationItemSelectedListener
             = new BottomNavigationView.OnNavigationItemSelectedListener() {
@@ -48,16 +48,19 @@ public class ChildActivity extends AppCompatActivity {
         BottomNavigationView navigation = (BottomNavigationView) findViewById(R.id.navigation);
         navigation.setOnNavigationItemSelectedListener(mOnNavigationItemSelectedListener);
 
+        mydb = new DatabaseHelper(this);
         parentID = (EditText) findViewById(R.id.parentIDText);
         username = (EditText) findViewById(R.id.usernameText);
         password = (EditText) findViewById(R.id.passwordText);
         name =  (EditText)  findViewById(R.id.nameText);
-        addbtn = (Button) findViewById(R.id.addBtn2);
+        addbtn2 = (Button) findViewById(R.id.addBtn2);
         AddData();
     }
 
     public void AddData() {
-        addbtn.setOnClickListener(
+
+
+        addbtn2.setOnClickListener(
                 new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
