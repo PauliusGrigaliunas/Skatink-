@@ -2,6 +2,7 @@ package pg.grigaliunas.paulius.skatink;
 
 import android.content.ContentValues;
 import android.content.Context;
+import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 
@@ -31,6 +32,7 @@ public class DatabaseHelper extends SQLiteOpenHelper{
         public static final String Col_points = "points";
         public static final String Col_date = "date ";
         public static final String Col_confirmed = "confirmed";
+        private SQLiteDatabase db = this.getWritableDatabase();
 
         private final String CreateParentTable =
                 "Create Table " + Table_Parent + " (" +
@@ -66,13 +68,12 @@ public class DatabaseHelper extends SQLiteOpenHelper{
                     Col_task_NR + " INTEGER, " +
                     Col_date + " text, " +
                     Col_confirmed + " BOOLEAN, " +
-                    "FOREIGN KEY("+Col_child_ID+") REFERENCES " + Table_Child  + "("+Col_ID+")" +
+                    "FOREIGN KEY("+Col_child_ID+") REFERENCES " + Table_Child  + "("+Col_ID+")," +
                     "FOREIGN KEY("+Col_child_ID+") REFERENCES " + Table_Tasks  + "("+Col_Nr+"))";
 
 
         public DatabaseHelper(Context context) {
                 super(context,DATABASE_NAME, null, 1);
-                SQLiteDatabase db = this.getWritableDatabase();
         }
 
         @Override
@@ -92,7 +93,6 @@ public class DatabaseHelper extends SQLiteOpenHelper{
                 onCreate(db);
         }
         public boolean insertParentData(String userName, String password, String name, String surname, String email, String phone){
-                SQLiteDatabase db = this.getWritableDatabase();
 
                 ContentValues contentValues = new ContentValues();
                 contentValues.put(Col_username, userName);
@@ -105,7 +105,6 @@ public class DatabaseHelper extends SQLiteOpenHelper{
                 return (result == -1 )? false: true;
         }
     public boolean insertChildData(int parentID, String userName, String password, String name){
-        SQLiteDatabase db = this.getWritableDatabase();
 
         ContentValues contentValues = new ContentValues();
         contentValues.put(Col_parent_ID, parentID);
@@ -118,7 +117,6 @@ public class DatabaseHelper extends SQLiteOpenHelper{
     }
 
     public boolean insertTaskData(String name, int points ){
-        SQLiteDatabase db = this.getWritableDatabase();
 
         ContentValues contentValues = new ContentValues();
         contentValues.put(Col_name, name);
@@ -128,7 +126,6 @@ public class DatabaseHelper extends SQLiteOpenHelper{
     }
 
     public boolean insertAssigmentData(int childID, int taskNR, boolean confirmed ){
-        SQLiteDatabase db = this.getWritableDatabase();
 
         Calendar cal = Calendar.getInstance();
         ContentValues contentValues = new ContentValues();
@@ -139,5 +136,13 @@ public class DatabaseHelper extends SQLiteOpenHelper{
         long result = db.insert(Table_Assigment, null, contentValues);
         return (result == -1 )? false: true;
     }
+
+    public String Validate(String username, String password){
+        //Cursor c = db.rawQuery("SELECT name FROM " + Table_Parent + " WHERE " +Col_username+ " = ' "+username+" '", null);
+        Cursor c = db.rawQuery("SELECT name FROM " + Table_Parent + " WHERE " + Col_username.trim() +
+                " = "+ username.trim() , null);
+        c.moveToFirst();
+        return c.getString(0);
+}
 }
 

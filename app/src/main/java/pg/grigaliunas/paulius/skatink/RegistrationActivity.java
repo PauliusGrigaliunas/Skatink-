@@ -1,7 +1,6 @@
 package pg.grigaliunas.paulius.skatink;
 
 import android.content.Intent;
-import android.net.MailTo;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
@@ -9,18 +8,17 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
 
-public class MainActivity extends AppCompatActivity {
+public class RegistrationActivity extends AppCompatActivity {
 
 
-    DatabaseHelper mydb;
-    EditText username, password, name, surname, email, phone;
-    Button addbtn, newbtn;
+    private DatabaseHelper mydb;
+    private EditText username, password, name, surname, email, phone;
+    private Button addbtn, newbtn;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        //DatabaseManager.getInstance(new DatabaseHelper(getApplicationContext()));
 
         mydb = new DatabaseHelper(this);
 
@@ -49,10 +47,10 @@ public class MainActivity extends AppCompatActivity {
                                 phone.getText().toString()
                         );
                         if (isInserted == true) {
-                            Toast.makeText(MainActivity.this, "Data inserted", Toast.LENGTH_LONG).show();
+                            Toast.makeText(RegistrationActivity.this, "Data inserted", Toast.LENGTH_LONG).show();
                         }
                         else {
-                            Toast.makeText(MainActivity.this, "Data not inserted", Toast.LENGTH_LONG).show();
+                            Toast.makeText(RegistrationActivity.this, "Data not inserted", Toast.LENGTH_LONG).show();
                         }
                     }
 
@@ -65,7 +63,7 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
 
-                startActivity(new Intent(MainActivity.this, ChildActivity.class));
+                startActivity(new Intent(RegistrationActivity.this, ChildActivity.class));
             }
         });
     }
