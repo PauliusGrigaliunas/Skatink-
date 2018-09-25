@@ -138,11 +138,11 @@ public class DatabaseHelper extends SQLiteOpenHelper{
     }
 
     public String Validate(String username, String password){
-        //Cursor c = db.rawQuery("SELECT name FROM " + Table_Parent + " WHERE " +Col_username+ " = ' "+username+" '", null);
-        Cursor c = db.rawQuery("SELECT name FROM " + Table_Parent + " WHERE " + Col_username.trim() +
-                " = "+ username.trim() , null);
-        c.moveToFirst();
-        return c.getString(0);
+        Cursor c = db.rawQuery("SELECT * FROM " + Table_Parent +
+                " WHERE " +Col_username+ " ='"+username.trim()+
+                "' AND " +Col_password+ " ='"+password.trim()+"'" , null);
+        if (c.moveToFirst()) return c.getString(0);
+        else return null;
 }
 }
 

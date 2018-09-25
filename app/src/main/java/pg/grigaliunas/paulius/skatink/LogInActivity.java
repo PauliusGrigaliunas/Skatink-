@@ -32,7 +32,7 @@ public class LogInActivity extends AppCompatActivity {
         registerBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                startActivity(new Intent(LogInActivity.this, ChildActivity.class));
+                startActivity(new Intent(LogInActivity.this, RegistrationActivity.class));
             }
         });
     }
@@ -41,7 +41,10 @@ public class LogInActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 TextView tv = (TextView) findViewById(R.id.textView);
-                tv.setText(mydb.Validate("Pauliakas", "123456789"));
+                //tv.setText(mydb.Validate(String.valueOf(username.getText()), password.getText().toString()));
+                if(mydb.Validate(String.valueOf(username.getText()), password.getText().toString())!= null)
+                    startActivity(new Intent(LogInActivity.this, BasicActivity.class));
+                else tv.setText( " incorrect username or password " );
             }
         });
 
