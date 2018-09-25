@@ -23,7 +23,10 @@
             android:name=".TaskActivity"
             android:label="@string/title_activity_task" />
         <activity android:name=".RegistrationActivity" />
-        <activity android:name=".BasicActivity"></activity>
+        <activity android:name=".BasicActivity" />
+        <activity
+            android:name=".MainActivity"
+            android:label="@string/title_activity_main"></activity>
     </application>
 
 </manifest>
