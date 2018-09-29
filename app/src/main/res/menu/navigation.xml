@@ -6,17 +6,27 @@
         android:icon="@drawable/ic_home_black_24dp"
         android:title="@string/title_home" />
     <item
-        android:id="@+id/navigation_header_container"
-        android:icon="@drawable/baseline_child_care_black_18dp"
-        android:title="@string/title_activity_child" />
-    <item
         android:id="@+id/navigation_dashboard"
         android:icon="@drawable/ic_dashboard_black_24dp"
         android:title="@string/title_dashboard" />
-
     <item
         android:id="@+id/navigation_notifications"
         android:icon="@drawable/ic_notifications_black_24dp"
         android:title="@string/title_notifications" />
-
+    <item
+        android:id="@+id/navigation_header_container"
+        android:icon="@drawable/baseline_child_care_black_18dp"
+        android:title="@string/title_activity_child" />
+    <item
+        android:id="@+id/navigation_drawer"
+        android:icon="@drawable/baseline_person_black_18dp"
+        android:title="@string/title_activity_child" />
+    <item
+        android:id="@+id/design_navigation_view"
+        android:icon="@drawable/baseline_settings_black_18dp"
+        android:title="@string/title_activity_child" />
+    <item
+        android:id="@+id/design_navigation"
+        android:icon="@drawable/baseline_exit_to_app_black_18dp"
+        android:title="@string/title_activity_child" />
 </menu>
